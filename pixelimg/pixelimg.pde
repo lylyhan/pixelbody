@@ -32,8 +32,8 @@ void setup(){
 
 void draw(){
   background(255);
-   gridx=10;
-   gridy=10;
+   gridx=5;
+   gridy=7;
   
   a=a+1.5*sin(frameCount/100);
   //a=map(noise(-5,5),0,1,0,10);
@@ -43,7 +43,10 @@ void draw(){
   //image(img2,0,0,width,height);
   textFont(f,48);
   fill(0);
-  text("what is home",100,100);
+  text("what is home",mouseX,mouseY);
+  text("who are you",width-mouseX,height-mouseY);
+  text("can i trust you",width-mouseX/2,height-mouseY/2);
+  text("i'm afraid of you",width-mouseX/3,height-mouseY/3);
   //rotate(PI/2);
   
   cutouts();
