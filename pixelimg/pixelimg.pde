@@ -6,33 +6,75 @@ am i listening to the wrong side of your chest
 does that make it a gesture for the sake of a gesture
 am i really listening, are you?
 */
-PImage img,maskImage;
+PFont f;
+PImage img,maskImage,img2;
 int halfImage;
 float a=3;
+int gridw,gridh,gridx,gridy;
+PImage[] grids;
 void setup(){
   img=loadImage("img1.JPG");
-  //maskImage = loadImage("mask.jpg");
-  //println(maskImage.getsize());
-  halfImage=width*height/2;
-  img.resize(500,0);
+  img2=loadImage("img2.JPG");
+  f=loadFont("BernardMT-Condensed-48.vlw");
+  halfImage=img.width*img.height/2;
+  /*
   img.loadPixels();
   for (int i = 0; i < halfImage; i++) {
     img.pixels[i+halfImage] = img.pixels[i];
   }
   img.updatePixels();
+  */
   //img.mask(maskImage);
   
-  size(500,375);
+  size(700,700);
   background(255);
 }
 
 void draw(){
   background(255);
-  a=a+1.5*sin(frameCount/100);
-  image(img,0,0);
-  //rotate(PI/2);
-  pixelchange(a);
+   gridx=10;
+   gridy=10;
   
+  a=a+1.5*sin(frameCount/100);
+  //a=map(noise(-5,5),0,1,0,10);
+  //a=map(a,0,1,-5,5);
+  //println(a);
+  //image(img,0,0,width/2,height);
+  //image(img2,0,0,width,height);
+  textFont(f,48);
+  fill(0);
+  text("what is home",100,100);
+  //rotate(PI/2);
+  
+  cutouts();
+  int i = 0;
+    for (int y = 0; y < gridy; y++){
+      for (int x = 0; x < gridx; x++){
+        image(grids[i], x*gridw, y*gridh);
+        i++;
+      }
+    }
+    pixelchange(a);
+}
+
+void cutouts(){
+gridw=width/gridx;
+gridh=height/gridy;
+int gridcount=gridx*gridy;
+grids=new PImage[gridcount];
+int i=0;
+for(int y=0;y<gridy;y++){
+for(int x=0;x<gridx;x++){
+  int cropx=(int) (mouseX-gridw/2);
+  int cropy=(int) (mouseY-gridh/2);
+  
+  grids[i++]=img2.get(cropx,cropy,gridw,gridh);
+
+}
+}
+
+
+
 }
 
 void pixelchange(float a){
